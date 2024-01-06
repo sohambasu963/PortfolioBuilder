@@ -22,7 +22,7 @@ export function CardLogin() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const { googleSignIn, user } = UserAuth();
+  const { googleSignIn, signIn, user } = UserAuth();
 
   useEffect(() => {
     if (user) {
@@ -45,9 +45,9 @@ export function CardLogin() {
         console.log("Google sign-in error:", googleError);
       }
     } else {
-      if (email === "user@name" && password === "portfolio") {
-        router.push("/");
-      } else {
+      try {
+        await signIn(email, password);
+      } catch (emailError) {
         alert("Invalid email or password");
       }
     }

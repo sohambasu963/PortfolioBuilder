@@ -5,8 +5,10 @@ import Topbar from "@/components/topbar";
 import WatchlistPage from "@/components/watchlist-page";
 import BuilderPage from "@/components/builder-page";
 import withAuth from "@/hoc/withAuth";
+import { UserAuth } from "@/context/AuthContext";
 
 function Home() {
+  const { user } = UserAuth();
   const [currentComponent, setCurrentComponent] = useState("/watchlist");
 
   const handleNavigation = (component: string) => {
@@ -26,7 +28,7 @@ function Home() {
       break;
   }
 
-  return (
+  return user ? (
     <div className="hidden md:block min-h-screen">
       <Topbar />
       <div className="border-t">
@@ -42,7 +44,7 @@ function Home() {
         </div>
       </div>
     </div>
-  );
+  ) : null;
 }
 
 export default withAuth(Home);
