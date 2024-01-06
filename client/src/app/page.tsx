@@ -3,8 +3,9 @@ import React, { useState } from "react";
 import Navbar from "@/components/navbar";
 import Topbar from "@/components/topbar";
 import PlaygroundPage from "@/components/playground-page";
+import withAuth from "@/hoc/withAuth";
 
-export default function Home() {
+function Home() {
   const [currentComponent, setCurrentComponent] = useState("/playground");
 
   const handleNavigation = (component: string) => {
@@ -39,3 +40,5 @@ export default function Home() {
     </div>
   );
 }
+
+export default withAuth(Home);

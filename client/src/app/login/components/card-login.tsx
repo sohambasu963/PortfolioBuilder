@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useEffect } from "react";
 import { Icons } from "@/components/ui/icons";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
@@ -15,24 +15,42 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { UserAuth } from "@/context/AuthContext";
 
 export function CardLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleLogin = (e: { preventDefault: () => void }) => {
-    e.preventDefault();
-    if (email === "user@name" && password == "portfolio") {
+  const { googleSignIn, user } = UserAuth();
+
+  useEffect(() => {
+    if (user) {
       router.push("/");
+    }
+  }, [user]);
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>, method: string) => {
+    e.preventDefault();
+
+    if (method === 'google') {
+      try {
+        await googleSignIn();
+      } catch (googleError) {
+        console.log("Google sign-in error:", googleError);
+      }
     } else {
-      alert("Invalid email or password");
+      if (email === "user@name" && password === "portfolio") {
+        router.push("/");
+      } else {
+        alert("Invalid email or password");
+      }
     }
   };
 
   return (
     <Card>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={(e) => handleLogin(e, 'email')}>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -70,7 +88,7 @@ export function CardLogin() {
             </div>
           </div>
           <div className="flex justify-center">
-            <Button variant="outline">
+            <Button variant="outline" onClick={(e) => handleLogin(e, 'google')}>
               <Icons.google className="mr-2 h-4 w-4" />
               Google
             </Button>
