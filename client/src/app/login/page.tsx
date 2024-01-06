@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export default function Login() {
   return (
-    <div>
+    <div className="bg-cream">
       <div>
         <div className="container relative hidden h-[0px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
           <Link

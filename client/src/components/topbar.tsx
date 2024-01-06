@@ -18,15 +18,15 @@ export default function Topbar() {
   };
 
   return (
-    <div className="relative hidden h-full flex-col p-5 text-white dark:border-r lg:flex">
+    <div className="bg-primary relative hidden h-[10vh] flex-col p-5 text-white dark:border-r lg:flex">
       <div className="flex justify-between items-center w-full text-black text-lg font-medium">
         {/* <Logo /> */}
-        Portfolio Builder
+        <h1 className="text-cream">Portfolio Builder</h1>
         <button
           onClick={handleLogout}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "text-md font-medium cursor-pointer hover:text-opacity-75",
+            "text-cream text-md font-medium cursor-pointer hover:text-opacity-75",
           )}
         >
           Logout

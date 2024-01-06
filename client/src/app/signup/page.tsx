@@ -36,7 +36,7 @@ export default function SignUp() {
           className="hidden dark:block"
         />
       </div>
-      <div className="container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+      <div className="bg-cream container relative hidden h-[800px] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
         <Link
           href="/login"
           className={cn(
@@ -50,11 +50,11 @@ export default function SignUp() {
           <div className="absolute inset-0 bg-primary" />
           <div className="relative z-20 flex items-center text-lg font-medium">
             {/* <Logo /> */}
-            Portfolio Builder
+            <h1 className="text-cream">Portfolio Builder</h1>
           </div>
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
-              <p className="text-lg mb-6">
+              <p className="text-cream text-lg mb-6">
                 Building portfolios is hard. We make it easy.
               </p>
             </blockquote>

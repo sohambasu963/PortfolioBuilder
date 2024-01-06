@@ -21,7 +21,7 @@ export default function Navbar({
   currentComponent: string;
 }) {
   return (
-    <div className={cn("pb-12", className)}>
+    <div className={cn("pb-12 bg-secondary h-[90vh]", className)}>
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">
           <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
@@ -29,12 +29,20 @@ export default function Navbar({
           </h2>
           <div className="space-y-1">
             <Button
-              variant={currentComponent === "/playground" ? "default" : "ghost"}
+              variant={currentComponent === "/watchlist" ? "default" : "ghost"}
               className="w-full justify-start"
-              onClick={() => navigateTo("/playground")}
+              onClick={() => navigateTo("/watchlist")}
             >
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              Playground
+              Watchlist
+            </Button>
+            <Button
+              variant={currentComponent === "/builder" ? "default" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => navigateTo("/builder")}
+            >
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Builder
             </Button>
           </div>
         </div>

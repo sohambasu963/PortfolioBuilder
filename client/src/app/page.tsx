@@ -2,28 +2,32 @@
 import React, { useState } from "react";
 import Navbar from "@/components/navbar";
 import Topbar from "@/components/topbar";
-import PlaygroundPage from "@/components/playground-page";
+import WatchlistPage from "@/components/watchlist-page";
+import BuilderPage from "@/components/builder-page";
 import withAuth from "@/hoc/withAuth";
 
 function Home() {
-  const [currentComponent, setCurrentComponent] = useState("/playground");
+  const [currentComponent, setCurrentComponent] = useState("/watchlist");
 
   const handleNavigation = (component: string) => {
     setCurrentComponent(component);
   };
 
-  let Component = PlaygroundPage;
+  let Component = WatchlistPage;
   switch (currentComponent) {
-    case "/playground":
-      Component = PlaygroundPage;
+    case "/watchlist":
+      Component = WatchlistPage;
+      break;
+    case "/builder":
+      Component = BuilderPage;
       break;
     default:
-      Component = PlaygroundPage;
+      Component = WatchlistPage;
       break;
   }
 
   return (
-    <div className="hidden md:block">
+    <div className="hidden md:block min-h-screen">
       <Topbar />
       <div className="border-t">
         <div className="grid lg:grid-cols-7">
