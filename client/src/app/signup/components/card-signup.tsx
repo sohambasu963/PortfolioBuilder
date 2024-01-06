@@ -19,26 +19,26 @@ export function CardSignUp({ className, ...props }: UserAuthFormProps) {
   const { signUp } = UserAuth();
   const router = useRouter();
 
-  const handleEmailSubmit = (e: any) => {
+  const handleEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsEmailEntered(true);
   };
 
-  const handleSignUp = async (e) => {
+  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
-  
+
     if (password !== confirmPassword) {
       alert("Passwords do not match");
       setIsLoading(false);
       return;
     }
-  
+
     try {
       await signUp(email, password);
       router.push("/login");
     } catch (error: any) {
-      if (error.code === 'auth/email-already-in-use') {
+      if (error.code === "auth/email-already-in-use") {
         alert("This email is already in use. Please use a different email.");
       } else {
         console.error("Error during sign up:", error);
@@ -52,71 +52,70 @@ export function CardSignUp({ className, ...props }: UserAuthFormProps) {
       setIsLoading(false);
     }
   };
-  
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
       {!isEmailEntered ? (
-      <form onSubmit={handleEmailSubmit}>
-        <div className="grid gap-1">
-          <Label className="sr-only" htmlFor="email">
-            Email
-          </Label>
-          <Input
-            id="email"
-            placeholder="name@example.com"
-            type="email"
-            autoCapitalize="none"
-            autoComplete="email"
-            autoCorrect="off"
-            disabled={isLoading}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button disabled={isLoading} className="mt-2">
-            {isLoading ? (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              "Sign Up with Email"
-            )}
-          </Button>
-        </div>
-      </form>
-    ) : (
-      <form onSubmit={handleSignUp}>
-        <div className="grid gap-1">
-          <Label className="sr-only" htmlFor="password">
-            Password
-          </Label>
-          <Input
-            id="password"
-            placeholder="Password"
-            type="password"
-            disabled={isLoading}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Label className="sr-only" htmlFor="confirm-password">
-            Confirm Password
-          </Label>
-          <Input
-            id="confirm-password"
-            placeholder="Confirm Password"
-            type="password"
-            disabled={isLoading}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <Button disabled={isLoading} className="mt-2">
-            {isLoading ? (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-            ) : (
-              "Create Account"
-            )}
-          </Button>
-        </div>
-      </form>
-    )}
+        <form onSubmit={handleEmailSubmit}>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="email">
+              Email
+            </Label>
+            <Input
+              id="email"
+              placeholder="name@example.com"
+              type="email"
+              autoCapitalize="none"
+              autoComplete="email"
+              autoCorrect="off"
+              disabled={isLoading}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Button disabled={isLoading} className="mt-2">
+              {isLoading ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Sign Up with Email"
+              )}
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <form onSubmit={handleSignUp}>
+          <div className="grid gap-1">
+            <Label className="sr-only" htmlFor="password">
+              Password
+            </Label>
+            <Input
+              id="password"
+              placeholder="Password"
+              type="password"
+              disabled={isLoading}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Label className="sr-only" htmlFor="confirm-password">
+              Confirm Password
+            </Label>
+            <Input
+              id="confirm-password"
+              placeholder="Confirm Password"
+              type="password"
+              disabled={isLoading}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+            <Button disabled={isLoading} className="mt-2">
+              {isLoading ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              ) : (
+                "Create Account"
+              )}
+            </Button>
+          </div>
+        </form>
+      )}
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
           <span className="w-full border-t" />
