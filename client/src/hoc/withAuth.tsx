@@ -1,6 +1,6 @@
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import { UserAuth } from '@/context/AuthContext';
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { UserAuth } from "@/context/AuthContext";
 
 const withAuth = (WrappedComponent: any) => {
   return (props: any) => {
@@ -9,7 +9,7 @@ const withAuth = (WrappedComponent: any) => {
 
     useEffect(() => {
       if (!loading && !user) {
-        Router.push('/login');
+        Router.push("/login");
       }
     }, [user, loading]);
 

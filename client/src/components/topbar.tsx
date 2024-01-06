@@ -1,18 +1,17 @@
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { UserAuth } from "@/context/AuthContext";
 
 export default function Topbar() {
-
   const { logOut } = UserAuth();
   const router = useRouter();
 
   const handleLogout = () => {
     try {
       logOut();
-      router.push('/login');
+      router.push("/login");
     } catch (error) {
       console.log(error);
     }
@@ -27,7 +26,7 @@ export default function Topbar() {
           onClick={handleLogout}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "text-md font-medium cursor-pointer hover:text-opacity-75"
+            "text-md font-medium cursor-pointer hover:text-opacity-75",
           )}
         >
           Logout

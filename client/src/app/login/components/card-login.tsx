@@ -30,10 +30,15 @@ export function CardLogin() {
     }
   }, [user]);
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>, method: string) => {
+  const handleLogin = async (
+    e:
+      | React.FormEvent<HTMLFormElement>
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    method: string,
+  ) => {
     e.preventDefault();
 
-    if (method === 'google') {
+    if (method === "google") {
       try {
         await googleSignIn();
       } catch (googleError) {
@@ -50,7 +55,7 @@ export function CardLogin() {
 
   return (
     <Card>
-      <form onSubmit={(e) => handleLogin(e, 'email')}>
+      <form onSubmit={(e) => handleLogin(e, "email")}>
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -88,7 +93,7 @@ export function CardLogin() {
             </div>
           </div>
           <div className="flex justify-center">
-            <Button variant="outline" onClick={(e) => handleLogin(e, 'google')}>
+            <Button variant="outline" onClick={(e) => handleLogin(e, "google")}>
               <Icons.google className="mr-2 h-4 w-4" />
               Google
             </Button>
