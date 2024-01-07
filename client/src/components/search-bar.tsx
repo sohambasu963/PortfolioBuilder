@@ -1,12 +1,26 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { fetchStockSuggestions } from "@/api";
+import { fetchStockSuggestions, fetchStockData } from "@/api";
 
 interface SearchBarProps {
-  watchlist: { symbol: string; price: string; currency: string }[];
+  watchlist: {
+    symbol: string;
+    price: string;
+    currency: string;
+    historicalData: any;
+  }[];
   setWatchlist: React.Dispatch<
-    React.SetStateAction<{ symbol: string; price: string; currency: string }[]>
+    React.SetStateAction<
+      { symbol: string; price: string; currency: string; historicalData: any }[]
+    >
   >;
+}
+
+interface StockData {
+  symbol: string;
+  price: string;
+  currency: string;
+  historicalData: any;
 }
 
 export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
@@ -52,8 +66,6 @@ export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
     };
   }, []);
 
-  //   const watchlist = ["AAPL", "GOOG", "MSFT", "META"];
-
   return (
     <div ref={searchBarRef} className="relative w-[50vw]">
       <input
@@ -79,8 +91,11 @@ export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
             <div
               key={index}
               className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center"
-              onClick={() => {
-                console.log(suggestion);
+              onClick={async () => {
+                const stockData = await fetchStockData(suggestion);
+                console.log(stockData);
+                setWatchlist([...watchlist, stockData]);
+                setSuggestions([]);
               }}
             >
               <div>
