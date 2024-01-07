@@ -26,7 +26,7 @@ export default function Topbar() {
           onClick={handleLogout}
           className={cn(
             buttonVariants({ variant: "ghost" }),
-            "text-cream text-md font-medium cursor-pointer hover:text-opacity-75",
+            "text-cream text-sm font-medium cursor-pointer hover:text-opacity-75",
           )}
         >
           Logout
