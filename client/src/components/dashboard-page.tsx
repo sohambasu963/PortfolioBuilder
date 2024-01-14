@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import SearchBar from "@/components/search-bar";
 import StockChart from "@/components/stock-chart";
 
-export default function WatchlistPage() {
+export default function DashboardPage() {
   // const [watchlist, setWatchlist] = useState([
   //   { symbol: "META", price: "351.92", currency: "USD" },
   //   { symbol: "AAPL", price: "182.49", currency: "USD" },
@@ -26,7 +26,7 @@ export default function WatchlistPage() {
     <div className="bg-cream h-[90vh] flex flex-col justify-start items-center pt-10">
       <SearchBar watchlist={watchlist} setWatchlist={setWatchlist} />
       <div className="flex w-full mt-12">
-        <div className="w-1/2 px-10 text-center">
+        <div className="w-2/5 px-10 text-center">
           <h2 className="text-2xl mb-4 font-bold">Watchlist</h2>
           <table className="min-w-full shadow-sm backdrop-filter backdrop-blur">
             <thead>
@@ -64,7 +64,7 @@ export default function WatchlistPage() {
                         e.stopPropagation();
                         handleRemoveStock(index);
                       }}
-                      className="absolute top-2 right-2 bg-red-400 hover:bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center"
+                      className="absolute top-1.5 right-1 bg-red-400 hover:bg-red-600 text-white rounded-full h-6 w-6 flex items-center justify-center"
                     >
                       &minus;
                     </button>
@@ -74,7 +74,7 @@ export default function WatchlistPage() {
             </tbody>
           </table>
         </div>
-        <div className="w-1/2 px-10 text-center">
+        <div className="w-3/5 px-10 text-center h-full">
           <h2 className="text-2xl mb-4 font-bold">Performance</h2>
           {watchlist[selectedRow] && (
             <StockChart

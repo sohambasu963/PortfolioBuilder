@@ -18,7 +18,7 @@ export default function Topbar() {
   };
 
   return (
-    <div className="bg-primary relative hidden h-[10vh] flex-col p-5 text-white dark:border-r lg:flex">
+    <div className="bg-primary relative hidden h-[8vh] flex-col p-5 pt-3 text-white dark:border-r lg:flex">
       <div className="flex justify-between items-center w-full text-black text-lg font-medium">
         {/* <Logo /> */}
         <h1 className="text-cream">Portfolio Builder</h1>

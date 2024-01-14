@@ -29,20 +29,28 @@ export default function Navbar({
           </h2>
           <div className="space-y-1">
             <Button
-              variant={currentComponent === "/watchlist" ? "default" : "ghost"}
+              variant={currentComponent === "/dashboard" ? "default" : "ghost"}
               className="w-full justify-start"
-              onClick={() => navigateTo("/watchlist")}
+              onClick={() => navigateTo("/dashboard")}
             >
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              Watchlist
+              Dashboard
             </Button>
             <Button
-              variant={currentComponent === "/builder" ? "default" : "ghost"}
+              variant={currentComponent === "/sentiment" ? "default" : "ghost"}
               className="w-full justify-start"
-              onClick={() => navigateTo("/builder")}
+              onClick={() => navigateTo("/sentiment")}
             >
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              Builder
+              Sentiment
+            </Button>
+            <Button
+              variant={currentComponent === "/portfolio" ? "default" : "ghost"}
+              className="w-full justify-start"
+              onClick={() => navigateTo("/portfolio")}
+            >
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Portfolio
             </Button>
           </div>
         </div>
