@@ -1,6 +1,15 @@
-import os
-from dotenv import load_dotenv
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+from main import calculate_weights
 
-load_dotenv()
-ALPHA_VANTAGE_API_KEY = os.getenv("ALPHA_VANTAGE_API_KEY")
+app = Flask(__name__)
+CORS(app)
 
+@app.route('/weights', methods=['GET'])
+def get_weights():
+    data = request.json
+    data = calculate_weights(data)
+    return jsonify(data)
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0')
