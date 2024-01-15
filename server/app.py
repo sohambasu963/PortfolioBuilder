@@ -5,6 +5,10 @@ from main import calculate_weights
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def home():
+    return 'Portfolio Builder Server'
+
 @app.route('/weights', methods=['GET'])
 def get_weights():
     data = request.json
