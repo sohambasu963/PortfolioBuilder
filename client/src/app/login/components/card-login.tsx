@@ -28,7 +28,7 @@ export function CardLogin() {
     if (user) {
       router.push("/");
     }
-  }, [user]);
+  }, [user, router]);
 
   const handleLogin = async (
     e:

@@ -35,7 +35,7 @@ export default function DashboardPage() {
     };
 
     fetchWatchlist();
-  }, []);
+  }, [watchlistCollectionRef]);
 
   const handleAddStockToFirestore = async (newStock: IWatchlistItem) => {
     try {
