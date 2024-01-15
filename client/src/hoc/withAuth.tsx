@@ -1,9 +1,9 @@
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import { UserAuth } from "@/context/AuthContext";
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { UserAuth } from '@/context/AuthContext';
 
-const withAuth = (WrappedComponent: any) => {
-  return (props: any) => {
+const withAuth = (WrappedComponent: React.ComponentType<any>) => {
+  const AuthenticatedComponent = (props: any) => {
     const router = useRouter();
     const { user, loading } = UserAuth();
 
@@ -19,6 +19,10 @@ const withAuth = (WrappedComponent: any) => {
 
     return <WrappedComponent {...props} />;
   };
+
+  AuthenticatedComponent.displayName = `withAuth(${WrappedComponent.displayName || WrappedComponent.name || 'Component'})`;
+
+  return AuthenticatedComponent;
 };
 
 export default withAuth;
