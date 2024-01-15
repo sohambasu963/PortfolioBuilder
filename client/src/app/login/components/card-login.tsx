@@ -57,8 +57,8 @@ export function CardLogin() {
     <Card>
       <form onSubmit={(e) => handleLogin(e, "email")}>
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Login</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-3xl font-eb-garamond">Login</CardTitle>
+          <CardDescription className="font-bricolage-grotesque">
             Enter your email below to login to your account
           </CardDescription>
         </CardHeader>
@@ -87,12 +87,12 @@ export function CardLogin() {
               <span className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
+              <span className="bg-background px-2 text-muted-foreground font-bricolage-grotesque">
                 Or continue with
               </span>
             </div>
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center font-bricolage-grotesque">
             <Button variant="outline" onClick={(e) => handleLogin(e, "google")}>
               <Icons.google className="mr-2 h-4 w-4" />
               Google

@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { fetchStockSuggestions, fetchStockData } from "@/api";
+import { fetchStockSuggestions, fetchStockData } from "@/lib/api";
 
 interface SearchBarProps {
   watchlist: StockData[];
   handleAddStockToFirestore: (newStock: StockData) => Promise<void>;
 }
-
 
 interface StockData {
   id?: string;
@@ -16,7 +15,10 @@ interface StockData {
   historicalData?: any;
 }
 
-export default function SearchBar({ watchlist, handleAddStockToFirestore }: SearchBarProps) {
+export default function SearchBar({
+  watchlist,
+  handleAddStockToFirestore,
+}: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<
     { symbol: string; name: string; currency: string }[]
@@ -59,9 +61,15 @@ export default function SearchBar({ watchlist, handleAddStockToFirestore }: Sear
     };
   }, []);
 
-  const addStock = async (suggestion: { symbol: string; name: string; currency: string }) => {
+  const addStock = async (suggestion: {
+    symbol: string;
+    name: string;
+    currency: string;
+  }) => {
     // Check if the stock is already in the watchlist
-    const isStockInWatchlist = watchlist.some(stock => stock.symbol === suggestion.symbol);
+    const isStockInWatchlist = watchlist.some(
+      (stock) => stock.symbol === suggestion.symbol,
+    );
 
     if (!isStockInWatchlist) {
       try {

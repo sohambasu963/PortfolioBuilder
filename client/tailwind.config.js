@@ -17,6 +17,12 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        "satoshi-variable": ["Satoshi Variable", "sans-serif"],
+        "tiempos-headline": ["Tiempos Headline", "serif"],
+        "eb-garamond": ["EB Garamond", "serif"],
+        "bricolage-grotesque": ["Bricolage Grotesque", "sans-serif"],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

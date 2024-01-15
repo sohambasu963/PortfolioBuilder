@@ -57,7 +57,5 @@ export default function StockChart({ historicalData }: StockChartProps) {
     ],
   };
 
-  return (
-    <Line data={chartData} options={options} />
-  );
+  return <Line data={chartData} options={options} />;
 }

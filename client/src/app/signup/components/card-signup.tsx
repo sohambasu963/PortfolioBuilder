@@ -121,12 +121,12 @@ export function CardSignUp({ className, ...props }: UserAuthFormProps) {
           <span className="w-full border-t" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-cream px-2 text-muted-foreground">
+          <span className="bg-cream px-2 text-muted-foreground font-bricolage-grotesque">
             Or continue with
           </span>
         </div>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center font-bricolage-grotesque">
         <Button variant="outline">
           <Icons.google className="mr-2 h-4 w-4" />
           Google
