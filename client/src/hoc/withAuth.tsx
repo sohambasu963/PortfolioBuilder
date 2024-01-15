@@ -4,18 +4,18 @@ import { UserAuth } from '@/context/AuthContext';
 
 const withAuth = (WrappedComponent: React.ComponentType<any>) => {
   const AuthenticatedComponent = (props: any) => {
-    const router = useRouter();
-    const { user, loading } = UserAuth();
+    // const router = useRouter();
+    // const { user, loading } = UserAuth();
 
-    useEffect(() => {
-      if (!loading && !user) {
-        router.push("/login");
-      }
-    }, [user, loading, router]);
+    // useEffect(() => {
+    //   if (!loading && !user) {
+    //     router.push("/login");
+    //   }
+    // }, [user, loading, router]);
 
-    if (loading) {
-      return null;
-    }
+    // if (loading) {
+    //   return null;
+    // }
 
     return <WrappedComponent {...props} />;
   };
