@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from main import calculate_weights
+from functions import calculate_weights
 
 app = Flask(__name__)
 CORS(app)
