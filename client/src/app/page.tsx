@@ -5,7 +5,6 @@ import Topbar from "@/components/topbar";
 import DashboardPage from "@/components/dashboard-page";
 import PortfolioPage from "@/components/portfolio-page";
 import SentimentPage from "@/components/sentiment-page";
-import withAuth from "@/hoc/withAuth";
 import { UserAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 
