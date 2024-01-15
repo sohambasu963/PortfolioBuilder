@@ -3,27 +3,20 @@ import Image from "next/image";
 import { fetchStockSuggestions, fetchStockData } from "@/api";
 
 interface SearchBarProps {
-  watchlist: {
-    symbol: string;
-    price: string;
-    currency: string;
-    historicalData: any;
-  }[];
-  setWatchlist: React.Dispatch<
-    React.SetStateAction<
-      { symbol: string; price: string; currency: string; historicalData: any }[]
-    >
-  >;
+  watchlist: StockData[];
+  handleAddStockToFirestore: (newStock: StockData) => Promise<void>;
 }
 
+
 interface StockData {
+  id?: string;
   symbol: string;
   price: string;
   currency: string;
-  historicalData: any;
+  historicalData?: any;
 }
 
-export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
+export default function SearchBar({ watchlist, handleAddStockToFirestore }: SearchBarProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<
     { symbol: string; name: string; currency: string }[]
@@ -66,6 +59,23 @@ export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
     };
   }, []);
 
+  const addStock = async (suggestion: { symbol: string; name: string; currency: string }) => {
+    // Check if the stock is already in the watchlist
+    const isStockInWatchlist = watchlist.some(stock => stock.symbol === suggestion.symbol);
+
+    if (!isStockInWatchlist) {
+      try {
+        const stockData = await fetchStockData(suggestion);
+        if (stockData) {
+          // Call the function to add the stock to Firestore
+          await handleAddStockToFirestore(stockData);
+        }
+      } catch (error) {
+        console.error("Error fetching stock data: ", error);
+      }
+    }
+  };
+
   return (
     <div ref={searchBarRef} className="relative w-[50vw]">
       <input
@@ -91,12 +101,13 @@ export default function SearchBar({ watchlist, setWatchlist }: SearchBarProps) {
             <div
               key={index}
               className="p-2 hover:bg-gray-100 cursor-pointer flex justify-between items-center"
-              onClick={async () => {
-                const stockData = await fetchStockData(suggestion);
-                console.log(stockData);
-                setWatchlist([...watchlist, stockData]);
-                setSuggestions([]);
-              }}
+              onClick={() => addStock(suggestion)}
+              // onClick={async () => {
+              //   const stockData = await fetchStockData(suggestion);
+              //   console.log(stockData);
+              //   setWatchlist([...watchlist, stockData]);
+              //   setSuggestions([]);
+              // }}
             >
               <div>
                 <strong>{suggestion.symbol}</strong> - {suggestion.name}

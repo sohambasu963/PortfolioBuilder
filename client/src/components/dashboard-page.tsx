@@ -1,30 +1,74 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "@/components/search-bar";
 import StockChart from "@/components/stock-chart";
+import { db } from "../firebase";
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore';
+
+interface IWatchlistItem {
+  id?: string;
+  symbol: string;
+  price: string;
+  currency: string;
+  historicalData?: any;
+}
+
+
 
 export default function DashboardPage() {
   // const [watchlist, setWatchlist] = useState([
   //   { symbol: "META", price: "351.92", currency: "USD" },
   //   { symbol: "AAPL", price: "182.49", currency: "USD" },
   // ]);
-  const [watchlist, setWatchlist] = useState<
-    { symbol: string; price: string; currency: string; historicalData: any }[]
-  >([]);
-
+  // const [watchlist, setWatchlist] = useState<
+  //   { symbol: string; price: string; currency: string; historicalData: any }[]
+  // >([]);
+  const [watchlist, setWatchlist] = useState<IWatchlistItem[]>([]);
   const [selectedRow, setSelectedRow] = useState(0);
+
+  const watchlistCollectionRef = collection(db, 'watchlist');
+
+  useEffect(() => {
+    const fetchWatchlist = async () => {
+      const querySnapshot = await getDocs(watchlistCollectionRef);
+      const stocks = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })) as IWatchlistItem[];
+      setWatchlist(stocks);
+    };
+
+    fetchWatchlist();
+  }, []);
+
+  const handleAddStockToFirestore = async (newStock: IWatchlistItem) => {
+    try {
+      await addDoc(watchlistCollectionRef, newStock);
+      setWatchlist(prevWatchlist => [...prevWatchlist, newStock]);
+    } catch (error) {
+      console.error("Error adding document to Firestore: ", error);
+    }
+  };
+
+  const handleRemoveStockFromFirestore = async (id: string) => {
+    try {
+      await deleteDoc(doc(watchlistCollectionRef, id));
+      setWatchlist(prevWatchlist => prevWatchlist.filter(stock => stock.id !== id));
+    } catch (error) {
+      console.error("Error removing document from Firestore: ", error);
+    }
+  };
 
   const handleRowClick = (index: number) => {
     setSelectedRow(index);
   };
 
   const handleRemoveStock = (index: number) => {
-    const newStocks = watchlist.filter((_, stockIndex) => stockIndex !== index);
-    setWatchlist(newStocks);
+    const stockToRemove = watchlist[index];
+    if (stockToRemove && stockToRemove.id) {
+      handleRemoveStockFromFirestore(stockToRemove.id);
+    }
   };
 
   return (
     <div className="bg-cream h-[90vh] flex flex-col justify-start items-center pt-10">
-      <SearchBar watchlist={watchlist} setWatchlist={setWatchlist} />
+      <SearchBar watchlist={watchlist} handleAddStockToFirestore={handleAddStockToFirestore} />
       <div className="flex w-full mt-12">
         <div className="w-2/5 px-10 text-center">
           <h2 className="text-2xl mb-4 font-bold">Watchlist</h2>
